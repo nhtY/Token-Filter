@@ -16,23 +16,8 @@ import java.util.UUID;
 @Component
 public class TokenUtil {
 
+    private static final int EXPIRATION_IN_MINUTES = 1;
 
-    private static final int EXPIRATION_IN_MINUTES = 30;
-
-//    private final JdbcTokenRepository tokenRepo;
-//    private final JdbcUserRepository userRepo;
-//
-//    public TokenUtil(JdbcTokenRepository tokenRepo, JdbcUserRepository userRepo) {
-//        this.tokenRepo = tokenRepo;
-//        this.userRepo = userRepo;
-//    }
-
-//    @Transactional
-//    public boolean isTokenExists(String token) {
-//        return tokenRepo.findToken(token).orElse(null) == null;
-//    }
-
-    // TODO: sadece bu method kalsın.... diğerlerini ise repo'lar üzerinden doğrudan ilgili yerlerde kullan
     public boolean isTokenExpired(String token) {
         if (token== null || token.isEmpty()) throw new TokenNotFoundError();
 
@@ -53,15 +38,5 @@ public class TokenUtil {
         return token.append(currentTimeInMillisecond).append("-")
                 .append(UUID.randomUUID()).toString();
     }
-
-//    @Transactional
-//    public User getUserForToken(String token) {
-//        return userRepo.getUserIfTokenExists(token).orElse(null);
-//    }
-//
-//    @Transactional
-//    public Boolean isThisAdmin(String token) {
-//        return userRepo.isAdmin(token);
-//    }
 
 }
