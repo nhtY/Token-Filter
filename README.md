@@ -1,99 +1,59 @@
+# Token Filter App
+My aim in this project is to understand servlet filters and how to manage token headers in the request and response headers. I had a chance to experience Inversion Of Control principle and the implementation of it via Dependency Injection.
 
-***BASE URL*** : http://localhost:8080/
-## API endpoints:
-* http://localhost:8080/ : Landing page, welcome user. There 2 buttons:
-  * to navigate to products for *shopping*
-  * to navigate to register OR profile/user home page: if already logged in --> profile | else register page
-* http://localhost:8080/api/auth/user/register Burada kullanıcı oluşturulur:
-  *  request body:
-  ```json
-    {
-        "name": "Test",
-        "surname": "User",
-        "username": "test1234",
-        "password": "test1234"
-    } 
-    ```
-  * error body:
-  ```json
-    {
-      "timestamp": "2023-08-01T08:18:11.001+00:00",
-      "status": 500,
-      "error": "Internal Server Error",
-      "path": "/api/auth/user/register"
-    }
-  ```
-  * success body (status code 200 OK):
-  ```json
-  {
-    "id": 12,
-    "username": "2test1234",
-    "password": "2test1234",
-    "name": "2Test",
-    "surname": "User2",
-    "role": "USER"
-  }
-  ```
-* http://localhost:8080/api/auth/login?username=veli1234&password=veli1234 Burada girilen bilgiler eşleşirse kullanıcıya token verilir.
-  * Burada username ve password bilgisi request parameter olarak yollanıyor.
-  * Response error status 400 Bad Request:
-    ```text
-    Entered username or password is wrong.
-    ```
-  * success body (status 200 OK):
-    ```json
-    {
-      "uid": 3,
-      "token": "1690878767586-a9662f6f-1d26-4503-b65a-e51409a06059"
-    }
-    ```
-* Landing Page static olacak. Bu yüzden herhangi bir api endpoint yok. url: http://localhost:8080/
-* http://localhost:8080/home Kullanıcı profil sayfası: Burada kullanıcıya dair bilgiler bulunacak.
-  * **Atılan request'te "my-token" header'ı bulunmalı.**
-  * error (status 400 Bad Request)
-  ```json
-  {
-    "timestamp": "2023-08-01T08:33:13.492+00:00",
-    "status": 400,
-    "error": "Bad Request",
-    "message": "Expired or invalid token.",
-    "path": "/home"
-  }
-  ```
-  * success (200 OK) Eğer kullanıcı admin ise admin dashboard'ı gösterilir değilse User profil sayfası gösterilir:
-  ```json
-  {
-    "id": 3,
-    "username": "veli1234",
-    "password": null,
-    "name": "Veli",
-    "surname": "Demir",
-    "role": "ADMIN"
-   }
-  ```
-* http://localhost:8080/api/auth/logout?id=3 Logout için parametre olarak id kullanıcı id bilgisi verilir.
-  * Burada da **"my-token"** header bilgisi gereklidir
+In this application, a simple token based authentication and authorization method is adopted. The token contains expire data and some unique random characters. There are a number of protected paths that requires a valid token to be accessed. Existence of a valid token header is examined using two separate filters: token filter and authorization filter. token filter checks if token is not expired and exists in the database. After that, authorization filter checks if the requested path or resources are allowed to be accessed by the requesting user. Furthermore, the application provides some other features such as CRUD for users and products.
 
-* http://localhost:8080/api/auth/admin/find-user?username=test1234 Burada parametre olarak username verilir.
-  * Buraya yalnızca **ADMIN** rolü olan kullanıcılar istek atabilir.
-  * **my-token** gereklidir.
-  * error-1: 
-  ```json
-  {
-    "timestamp": "2023-08-01T08:50:05.005+00:00",
-    "status": 400,
-    "error": "Bad Request",
-    "message": "Expired or invalid token.",
-    "path": "/api/auth/user/find"
-  }
-  ```
-    * error-2:
-  ```json
-  {
-    "timestamp": "2023-08-01T08:52:17.239+00:00",
-    "status": 401,
-    "error": "Unauthorized",
-    "message": "You are not authorized",
-    "path": "/api/auth/user/find"
-   }
-  ```
+The application has three main layers: repository for data access, service for business logic, and controller for handling restful HTTP requests. Other than these modules, it has config, filter, model, error, etc. modules. Shortly, the application is split into modules for the ease of development and separation of concerns.
+
+### Modules in the app:
+
+![image-20230824171726848](https://github.com/nhtY/Token-Filter/assets/89942570/68354cdf-ebff-4da1-96f9-741ea29d6722)
+
+
+### General view of the http methods
+
+![image-20230824172134302](https://github.com/nhtY/Token-Filter/assets/89942570/cff33f55-f803-472d-aac6-89116eafdc74)
+
+
+# FRONTEND
+
+The frontend is developed using React. State management is done by using Redux Tool-Kit with asyncThunks. Axios is used for API calls.
+Bootstrap is used to make the design a bit attractive.
+
+## Landing page
+
+![image-20230824170608891](https://github.com/nhtY/Token-Filter/assets/89942570/228408c5-56ac-4d83-8f2d-3d5f10a342c3)
+
+
+
+## Login Page
+
+![image-20230824170526848](https://github.com/nhtY/Token-Filter/assets/89942570/4c22478b-c49a-48ce-a700-15f721eb8b5f)
+
+
+## Register Page
+
+![image-20230824170642562](https://github.com/nhtY/Token-Filter/assets/89942570/3b5570e5-d3ab-4d8d-92f1-b53a424d4030)
+
+## Profile
+
+![image-20230824170717859](https://github.com/nhtY/Token-Filter/assets/89942570/d05a19c1-7f0d-4749-9d3f-108bd743145d)
+
+
+### Profile - Edit
+
+![image-20230824170751488](https://github.com/nhtY/Token-Filter/assets/89942570/8bbbb3c0-cf0c-4a2e-83d2-1287793e854a)
+
+## User Operations
+
+![image-20230824170946649](https://github.com/nhtY/Token-Filter/assets/89942570/23580668-85fa-4de9-9e1c-82874787d7ae)
+
+**When opening user home page, if the token is expired, user is forced to log out automatically.**
+
+
+![image-20230824171213557](https://github.com/nhtY/Token-Filter/assets/89942570/df753645-40d5-4ef9-9f8e-f4faf5b53a7f)
+
+---
+
+
+
