@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 @Component
 @Slf4j
@@ -69,8 +70,10 @@ public class TokenFilter implements Filter {
 
             log.warn("Logging Request: my-token header not found or invalid.");
 
-            throw new ServletException("servlet exception");
+            //throw new ServletException("servlet exception");
             //throw new TokenNotFoundError();
+            res.reset();
+            res.sendError(HttpServletResponse.SC_BAD_REQUEST, "invalid token");
         }
 
         filterChain.doFilter(req, servletResponse);
