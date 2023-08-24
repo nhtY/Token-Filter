@@ -1,9 +1,9 @@
 # Token Filter App
-My aim in this project is to understand servlet filters and how to manage token headers in the request and response headers. I had a chance to experience Inversion Of Control principle and the implementation of it via Dependency Injection.
+My aim in this project is to understand servlet filters and how to manage token headers in the request and response headers. I had a chance to experience the Inversion Of Control principle and its implementation via Dependency Injection.
 
-In this application, a simple token based authentication and authorization method is adopted. The token contains expire data and some unique random characters. There are a number of protected paths that requires a valid token to be accessed. Existence of a valid token header is examined using two separate filters: token filter and authorization filter. token filter checks if token is not expired and exists in the database. After that, authorization filter checks if the requested path or resources are allowed to be accessed by the requesting user. Furthermore, the application provides some other features such as CRUD for users and products.
+In this application, a simple token-based authentication and authorization method is adopted. The token contains expiration data and some unique random characters. There are a number of protected paths that require a valid token to be accessed. The existence of a valid token header is examined using two separate filters: token filter and authorization filter. token filter checks if token is not expired and exists in the database. After that, the authorization filter checks if the requested path or resources are allowed to be accessed by the requesting user. Furthermore, the application provides some other features such as CRUD for users and products.
 
-The application has three main layers: repository for data access, service for business logic, and controller for handling restful HTTP requests. Other than these modules, it has config, filter, model, error, etc. modules. Shortly, the application is split into modules for the ease of development and separation of concerns.
+The application has three main layers: repository for data access, service for business logic, and controller for handling restful HTTP requests. Besides these modules, it has config, filter, model, error, etc. Shortly, the application is split into modules for ease of development and separation of concerns.
 
 So, _Spring Data JPA, JdbcTemplate, Lombok, Servlet Filter_ are used.
 
@@ -12,14 +12,14 @@ So, _Spring Data JPA, JdbcTemplate, Lombok, Servlet Filter_ are used.
 ![image-20230824171726848](https://github.com/nhtY/Token-Filter/assets/89942570/68354cdf-ebff-4da1-96f9-741ea29d6722)
 
 
-### General view of the http methods
+### General view of the HTTP methods
 
 ![image-20230824172134302](https://github.com/nhtY/Token-Filter/assets/89942570/cff33f55-f803-472d-aac6-89116eafdc74)
 
 
 # FRONTEND
 
-The frontend is developed using **React**. State management is done by using **Redux Tool-Kit** with **asyncThunks**. **Axios** is used for API calls.
+The front end is developed using **React**. State management uses **Redux Tool-Kit** with **asyncThunks**. **Axios** is used for API calls.
 **Bootstrap** is used to make the design a bit attractive.
 
 ## Landing page
