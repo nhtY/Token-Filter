@@ -5,6 +5,8 @@ In this application, a simple token based authentication and authorization metho
 
 The application has three main layers: repository for data access, service for business logic, and controller for handling restful HTTP requests. Other than these modules, it has config, filter, model, error, etc. modules. Shortly, the application is split into modules for the ease of development and separation of concerns.
 
+So, _Spring Data JPA, JdbcTemplate, Lombok, Servlet Filter_ are used.
+
 ### Modules in the app:
 
 ![image-20230824171726848](https://github.com/nhtY/Token-Filter/assets/89942570/68354cdf-ebff-4da1-96f9-741ea29d6722)
@@ -17,8 +19,8 @@ The application has three main layers: repository for data access, service for b
 
 # FRONTEND
 
-The frontend is developed using React. State management is done by using Redux Tool-Kit with asyncThunks. Axios is used for API calls.
-Bootstrap is used to make the design a bit attractive.
+The frontend is developed using **React**. State management is done by using **Redux Tool-Kit** with **asyncThunks**. **Axios** is used for API calls.
+**Bootstrap** is used to make the design a bit attractive.
 
 ## Landing page
 
